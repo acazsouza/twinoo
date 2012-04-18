@@ -5,6 +5,12 @@
     <title>Twinoo</title>
 </head>
 <body>
+    <p id="expression"></p>
+
+    <span id="firstNumber"></span>
+    <span id="secondNumber"></span>
+    <span id="thirdNumber"></span>
+
     <script type="text/javascript">
         //http://www.kongregate.com/games/zigah111/twinoo-the-brain-train
         
@@ -29,13 +35,14 @@
             return eval(expression);
         }
 
-        function getWrongAnswers() {
+        window.onload = function () {
+            var expression = getExpression(getRandomNumber(), getRandomOperator(operators), getRandomNumber());
 
+            document.getElementById("expression").innerHTML = expression;
+            document.getElementById("firstNumber").innerHTML = getAnswer(expression);
+            document.getElementById("secondNumber").innerHTML = getRandomNumber();
+            document.getElementById("thirdNumber").innerHTML = getRandomNumber();
         }
-
-        var exp = getExpression(getRandomNumber(), getRandomOperator(operators), getRandomNumber());
-
-        alert(getAnswer(exp));
     </script>
 </body>
 </html>
