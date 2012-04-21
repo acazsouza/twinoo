@@ -10,13 +10,13 @@ function getRandomOperator(operators) {
 }*/
 
 function getFirstNumber(operator) {
-    if (operator == '+') {
+    if ('+' == operator) {
         return getRandomNumber(8);
-    } else if (operator == '-') {
+    } else if ('-' == operator) {
         return getRandomNumber(9);
-    } else if (operator == '*') {
+    } else if ('*' == operator) {
         return getRandomNumber(9);
-    } else if (operator == '/') {
+    } else if ('/' == operator) {
         return getRandomNumber(9);
     }
 
@@ -24,10 +24,19 @@ function getFirstNumber(operator) {
 }
 
 function getSecondNumber(firstNumber, operator) {
-    if (operator == '+') {
+    if ('+' == operator) {
         return getRandomNumber(9 - firstNumber);
-    } else if (operator == '-') {
-        return getRandomNumber();
+    } else if ('-' == operator) {
+        if (9 == firstNumber)
+            return getRandomNumber(8);
+        else {
+            var randomNumber = getRandomNumber(9);
+            while (firstNumber == randomNumber) {
+                randomNumber = getRandomNumber(9);
+            }
+
+            return randomNumber;
+        }
     }
 
     return null;
