@@ -16,12 +16,6 @@
 
             module('getRandomNumber(limit) Tests');
 
-            test("getRandomNumber(anyNumber) should never return 0", function () {
-                for (var i = 0; i <= 100; i++) {
-                    equal(0 != getRandomNumber(9), true);
-                }
-            });
-
             test("getRandomNumber() should return a number between 1..9", function () {
                 var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -30,19 +24,35 @@
             });
 
             test("getRandomNumber(anyNumber) should return a number between 1..anyNumber", function () {
+                var result;
 
-                var anyNumber, result;
+                for (var i = 1; i <= 9; i++) {
+                    result = getRandomNumber(i);
 
-                for (var i = 0; i <= 100; i++) {
-                    anyNumber = Math.floor((Math.random() * 9) + 1);
-                    result = getRandomNumber(anyNumber);
-
-                    equal((0 < result && result < (anyNumber + 1)), true);
+                    equal((0 < result && result < (i + 1)), true);
                 }
             });
 
-            test("getRandomNumber(anyNumber) should never return the same number once and again", function () {
+            test("getRandomNumber(1) should return 1", function () {
+                equal(1 == getRandomNumber(1), true);
+            });
+
+            test("getRandomNumber() should never return the same number once and again", function () {
                 //http://www.askageek.com/2006/01/31/javascript-random-function-that-does-not-return-two-consecutive-identical-results/
+
+                var prevNumber, actualNumber, assertResult;
+
+                for (var i = 0; i <= 200; i++) {
+                    actualNumber = getRandomNumber(9);
+                    assertResult = prevNumber != actualNumber;
+
+                    equal(assertResult, true);
+
+                    if (!assertResult)
+                        break;
+
+                    prevNumber = actualNumber;
+                }
             });
 
             module('getFirstNumber Tests');

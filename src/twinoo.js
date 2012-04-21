@@ -33,11 +33,25 @@ function getSecondNumber(firstNumber, operator) {
     return null;
 }
 
+window.prevRandomNumber = -1;
 function getRandomNumber(limit) {
-    if (!limit)
-        limit = 9;
+    //limit = Number(limit);
+    if (!limit) limit = 9;
 
-    return Math.floor((Math.random() * limit) + 1);
+    if (1 == limit) {
+        window.prevRandomNumber = -1;
+        return 1;
+    } 
+
+    var actualRandomNumber = Math.floor((Math.random() * limit) + 1);
+
+    while (window.prevRandomNumber == actualRandomNumber) {
+        actualRandomNumber = Math.floor((Math.random() * limit) + 1)
+    }
+
+    window.prevRandomNumber = actualRandomNumber;
+
+    return actualRandomNumber;
 }
 
 /*function getExpressionString(firstNumber, operator, secondNumber) {
