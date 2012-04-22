@@ -5,22 +5,23 @@
     <title>Twinoo</title>
 
     <style type="text/css">
-        
+        #expression { font-size:54px }
+        .numbers { cursor:pointer; font-size:84px; padding-right:50px }
     </style>
 </head>
 <body>
     <p id="expression"></p>
 
-    <span id="firstNumber"></span>
-    <span id="secondNumber"></span>
-    <span id="thirdNumber"></span>
+    <span id="firstNumber" class="numbers"></span>
+    <span id="secondNumber" class="numbers"></span>
+    <span id="thirdNumber" class="numbers"></span>
 
     <script type="text/javascript" src="../libs/jquery-1.7.2/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="twinoo.js"></script>
     <script type="text/javascript">
-        window.onload = function () {
-            var operators = ['+', '+', '+', '-', '-', '-', '/', '/', '*', '*'];
+        var operators = ['+', '+', '+', '-', '-', '-', '/', '/', '*', '*'];
 
+        function applyNewExpression() {
             var operator = getRandomOperator(operators);
             var firstNumber = getFirstNumber(operator);
             var secondNumber = getSecondNumber(firstNumber, operator);
@@ -30,17 +31,24 @@
 
             var fields = [document.getElementById('firstNumber'), document.getElementById('secondNumber'), document.getElementById('thirdNumber')]
 
-            var index = (getRandomNumber({ limit: 3, prevRandomNumberId: "indexFields" }) - 1);
+            var index = (getRandomNumber({ limit: 3, prevRandomNumberId: "indexFieldsPrevRandomNumber" }) - 1);
 
             for (var i = 0; i <= 2; i++) {
                 if (index != i)
                     fields[i].innerHTML = getRandomNumber({
-                        except: expression.correctAnswer
+                        except: expression.correctAnswer,
+                        prevRandomNumberId: "fieldsPrevRandomNumber"
                     });
             }
 
             fields[index].innerHTML = expression.correctAnswer;
         }
+
+        window.onload = applyNewExpression;
+
+        $('.numbers').click(function () {
+            applyNewExpression();
+        });
     </script>
 </body>
 </html>

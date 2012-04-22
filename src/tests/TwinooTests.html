@@ -106,7 +106,7 @@
 
 
 
-            module('getSecondNumber Tests');
+            module('getSecondNumber() Tests');
 
             test("getSecondNumber(8, '+') should return 1", function () {
                 var operator = '+';
@@ -233,12 +233,12 @@
                     equal(1 == getSecondNumber(2, '-'), true);
             });
 
-            test("getSecondNumber(1, '*') should return a number between 1..9", function () {
+            test("getSecondNumber(1, '*') should return a number between 2..9", function () {
                 var secondNumber, result;
 
                 for (var i = 0; i <= 100; i++) {
                     secondNumber = getSecondNumber(1, '*');
-                    result = (1 <= secondNumber && secondNumber <= 9);
+                    result = (2 <= secondNumber && secondNumber <= 9);
 
                     equal(result, true);
 

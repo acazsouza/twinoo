@@ -27,7 +27,9 @@ function getSecondNumber(firstNumber, operator) {
     } else if ('-' == operator) {
         return getRandomNumber({ limit: 9 - (10 - firstNumber) });
     } else if ('*' == operator) {
-        if (2 == firstNumber) {
+        if (1 == firstNumber) {
+            return getRandomNumber({ limit: 8, indexDelay: 2 });
+        } else if (2 == firstNumber) {
             return getRandomNumber({ limit: 4 });
         } else if (3 == firstNumber) {
             return getRandomNumber({ limit: 3 });
@@ -94,7 +96,7 @@ function getRandomNumber(params) {
         limit: 9,
         indexDelay: 1,
         except: null,
-        prevRandomNumberId: "universalPrevRandomNumberId"
+        prevRandomNumberVariable: "globalPrevRandomNumber"
     }
 
     for (param in params) {
@@ -108,11 +110,11 @@ function getRandomNumber(params) {
 
     var actualRandomNumber = Math.floor((Math.random() * o.limit) + o.indexDelay);
 
-    while (window[o.prevRandomNumberId] == actualRandomNumber || (o.except && (actualRandomNumber == o.except))) {
+    while (window[o.prevRandomNumberVariable] == actualRandomNumber || (o.except && (actualRandomNumber == o.except))) {
         actualRandomNumber = Math.floor((Math.random() * o.limit) + o.indexDelay)
     }
 
-    window[o.prevRandomNumberId] = actualRandomNumber;
+    window[o.prevRandomNumberVariable] = actualRandomNumber;
 
     return actualRandomNumber;
 }
