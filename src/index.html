@@ -5,39 +5,47 @@
     <title>Twinoo</title>
 
     <style type="text/css">
-        #expression { font-size:54px }
-        .numbers { cursor:pointer; font-size:84px; padding-right:50px }
+        #expression { font-size:54px; text-align:center }
+        .numbers { cursor:pointer; font-size:84px; display:block; position:absolute }
+        #first-number { left:40% }
+        #second-number { left:50% }
+        #third-number { left:60% }
     </style>
 </head>
 <body>
     <p id="expression"></p>
 
-    <span id="firstNumber" class="numbers"></span>
-    <span id="secondNumber" class="numbers"></span>
-    <span id="thirdNumber" class="numbers"></span>
+    <div>
+        <span id="first-number" class="numbers"></span>
+        <span id="second-number" class="numbers"></span>
+        <span id="third-number" class="numbers"></span>
+    </div>
 
     <script type="text/javascript" src="../libs/jquery-1.7.2/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="twinoo.js"></script>
     <script type="text/javascript">
         var operators = ['+', '+', '+', '-', '-', '-', '/', '/', '*', '*'];
 
+        var numberOfErros = 0;
+        var expression;
+
         function applyNewExpression() {
             var operator = getRandomOperator(operators);
             var firstNumber = getFirstNumber(operator);
             var secondNumber = getSecondNumber(firstNumber, operator);
-            var expression = buildExpression(firstNumber, operator, secondNumber);
+            expression = buildExpression(firstNumber, operator, secondNumber);
 
             document.getElementById('expression').innerHTML = firstNumber.toString() + ' ' + operator.toString() + ' ' + secondNumber.toString();
 
-            var fields = [document.getElementById('firstNumber'), document.getElementById('secondNumber'), document.getElementById('thirdNumber')]
+            var fields = [document.getElementById('first-number'), document.getElementById('second-number'), document.getElementById('third-number')]
 
-            var index = (getRandomNumber({ limit: 3, prevRandomNumberId: "indexFieldsPrevRandomNumber" }) - 1);
+            var index = (getRandomNumber({ limit: 3, prevRandomNumberContext: "indexFieldsPrevRandomNumberContext" }) - 1);
 
             for (var i = 0; i <= 2; i++) {
                 if (index != i)
                     fields[i].innerHTML = getRandomNumber({
                         except: expression.correctAnswer,
-                        prevRandomNumberId: "fieldsPrevRandomNumber"
+                        prevRandomNumberContext: "fieldsPrevRandomNumberContext"
                     });
             }
 
@@ -47,6 +55,14 @@
         window.onload = applyNewExpression;
 
         $('.numbers').click(function () {
+            var clickedNumber = $(this).html();
+
+            if (clickedNumber != expression.correctAnswer)
+                numberOfErros++;
+
+            if (numberOfErros >= 3)
+                alert('acabou o jogo.')
+
             applyNewExpression();
         });
     </script>

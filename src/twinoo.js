@@ -96,7 +96,7 @@ function getRandomNumber(params) {
         limit: 9,
         indexDelay: 1,
         except: null,
-        prevRandomNumberVariable: "globalPrevRandomNumber"
+        prevRandomNumberContext: "globalPrevRandomNumberContext"
     }
 
     for (param in params) {
@@ -104,17 +104,17 @@ function getRandomNumber(params) {
     }
 
     if (1 == o.limit) {
-        prevRandomNumber = -1;
+        window[o.prevRandomNumberContext] = -1;
         return 1;
     }
 
     var actualRandomNumber = Math.floor((Math.random() * o.limit) + o.indexDelay);
 
-    while (window[o.prevRandomNumberVariable] == actualRandomNumber || (o.except && (actualRandomNumber == o.except))) {
+    while (window[o.prevRandomNumberContext] == actualRandomNumber || (o.except && (actualRandomNumber == o.except))) {
         actualRandomNumber = Math.floor((Math.random() * o.limit) + o.indexDelay)
     }
 
-    window[o.prevRandomNumberVariable] = actualRandomNumber;
+    window[o.prevRandomNumberContext] = actualRandomNumber;
 
     return actualRandomNumber;
 }
