@@ -3,6 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>Twinoo</title>
+
+    <style type="text/css">
+        
+    </style>
 </head>
 <body>
     <p id="expression"></p>
@@ -11,15 +15,31 @@
     <span id="secondNumber"></span>
     <span id="thirdNumber"></span>
 
+    <script type="text/javascript" src="../libs/jquery-1.7.2/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="twinoo.js"></script>
     <script type="text/javascript">
         window.onload = function () {
-            var expression = getExpressionString(getRandomNumber(), getRandomOperator(operators), getRandomNumber());
+            var operators = ['+', '+', '+', '-', '-', '-', '/', '/', '*', '*'];
 
-            document.getElementById("expression").innerHTML = expression;
-            document.getElementById("firstNumber").innerHTML = getAnswer(expression);
-            document.getElementById("secondNumber").innerHTML = getRandomNumber();
-            document.getElementById("thirdNumber").innerHTML = getRandomNumber();
+            var operator = getRandomOperator(operators);
+            var firstNumber = getFirstNumber(operator);
+            var secondNumber = getSecondNumber(firstNumber, operator);
+            var expression = buildExpression(firstNumber, operator, secondNumber);
+
+            document.getElementById('expression').innerHTML = firstNumber.toString() + ' ' + operator.toString() + ' ' + secondNumber.toString();
+
+            var fields = [document.getElementById('firstNumber'), document.getElementById('secondNumber'), document.getElementById('thirdNumber')]
+
+            var index = (getRandomNumber({ limit: 3, prevRandomNumberId: "indexFields" }) - 1);
+
+            for (var i = 0; i <= 2; i++) {
+                if (index != i)
+                    fields[i].innerHTML = getRandomNumber({
+                        except: expression.correctAnswer
+                    });
+            }
+
+            fields[index].innerHTML = expression.correctAnswer;
         }
     </script>
 </body>
