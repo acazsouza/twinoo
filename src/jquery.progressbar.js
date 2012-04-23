@@ -5,14 +5,33 @@
         'done': null
     };
 
+    var decreaseBar = function (barElement) {
+        $(barElement).stop();
+
+        var barElementWidth = $(barElement).width();
+        $(barElement).animate({ width: 0 }, settings.velocity, function () {
+            if (0 >= $(barElement).width() && $.isFunction(settings.done)) {
+                settings.done();
+            }
+        });
+    }
+
     var methods = {
         init: function (options) {
             settings = $.extend(settings, options);
 
-            return this.each(function(){
-                alert($.isFunction(settings.done));
-                if ($.isFunction(settings.done))
-                    settings.done();
+            return this.each(function () {
+
+            });
+        },
+        start: function () {
+            return this.each(function () {
+                decreaseBar(this);
+            });
+        },
+        reset: function () {
+            return this.each(function () {
+                $(this).width($(this).parent().width());
             });
         }
     };
