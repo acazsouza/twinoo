@@ -12,9 +12,8 @@
     <script type="text/javascript" src="../src/jquery.progressbar.js"></script>
 
     <style type="text/css">
-        .barProgress { width:100%; height:20px; border:solid 1px #000; position:relative }
-        
-        .barProgress .bar { width:100%; height:20px; position:absolute; right:0; background-color:red  }
+        .progress-bar { width:100%; height:20px; border:solid 1px #000; position:relative }
+        .progress-bar .bar { width:100%; height:20px; position:absolute; right:0; background-color:red }
     </style>
 
     <script type="text/javascript">
@@ -22,7 +21,7 @@
 
             module("$.progressBar() Tests", {
                 setup: function () {
-                    var HTMLStub = '<div id="div-id" class="barProgress"><div class="bar"></div></div>';
+                    var HTMLStub = '<div id="div-id" class="progress-bar"><div class="bar"></div></div>';
                     $(HTMLStub).appendTo('body');
                 },
                 teardown: function () {

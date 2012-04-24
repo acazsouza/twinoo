@@ -10,9 +10,13 @@
         #first-number { left:40% }
         #second-number { left:50% }
         #third-number { left:60% }
+        .progress-bar { width:100%; height:20px; border:solid 1px #000; position:relative }
+        .progress-bar .bar { width:100%; height:20px; position:absolute; right:0; background-color:red }
     </style>
 </head>
 <body>
+    <div id="progress-bar" class="progress-bar"><div class="bar"></div></div>
+
     <p id="expression"></p>
 
     <div>
@@ -51,6 +55,9 @@
             }
 
             fields[index].innerHTML = expression.correctAnswer;
+
+            var progressBar = $('#progress-bar').progressBar({ velocity: 10000 });
+            progressBar.progressBar('start');
         }
 
         window.onload = applyNewExpression;
