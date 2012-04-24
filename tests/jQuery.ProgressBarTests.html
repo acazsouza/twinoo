@@ -22,7 +22,7 @@
 
             module("$.progressBar() Tests", {
                 setup: function () {
-                    var HTMLStub = '<div id="div-id" class="barProgress"><div class="bar"></div><div>';
+                    var HTMLStub = '<div id="div-id" class="barProgress"><div class="bar"></div></div>';
                     $(HTMLStub).appendTo('body');
                 },
                 teardown: function () {
@@ -68,6 +68,19 @@
                 myProgressBar.progressBar('reset');
 
                 equal($('.barProgress').width() == myProgressBar.find('.bar').width(), true);
+            });
+
+            asyncTest("reset() method should stop animation", function () {
+                var myProgressBar = $('#div-id').progressBar();
+                myProgressBar.progressBar('start');
+                myProgressBar.progressBar('reset');
+
+                equal($('.barProgress').width() == myProgressBar.find('.bar').width(), true);
+
+                setTimeout(function () {
+                    start();
+                    equal($('.barProgress').width() == myProgressBar.find('.bar').width(), true);
+                }, 100);
             });
         });
     </script>

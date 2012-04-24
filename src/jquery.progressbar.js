@@ -6,11 +6,11 @@
     };
 
     var decreaseBar = function (barElement) {
-        $(barElement).stop();
+        $(barElement).find('.bar').stop();
 
-        var barElementWidth = $(barElement).width();
-        $(barElement).animate({ width: 0 }, settings.velocity, function () {
-            if (0 >= $(barElement).width() && $.isFunction(settings.done)) {
+        var barElementWidth = $(barElement).find('.bar').width();
+        $(barElement).find('.bar').animate({ width: 0 }, settings.velocity, function () {
+            if (0 >= $(barElement).find('.bar').width() && $.isFunction(settings.done)) {
                 settings.done();
             }
         });
@@ -31,7 +31,8 @@
         },
         reset: function () {
             return this.each(function () {
-                $(this).width($(this).parent().width());
+                $(this).find('.bar').stop();
+                $(this).find('.bar').width($(this).parent().width());
             });
         }
     };
