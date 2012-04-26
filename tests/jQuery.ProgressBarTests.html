@@ -9,6 +9,7 @@
     <script type="text/javascript" src="../libs/jquery-1.7.2/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="../libs/jquery-qunit-v1.5.0-7-g4f51c3f/qunit/qunit.js"></script>
 
+    <script type="text/javascript" src="../src/twinoo.js"></script>
     <script type="text/javascript" src="../src/jquery.progressbar.js"></script>
 
     <style type="text/css">
@@ -38,6 +39,7 @@
                 var wasCalled = false;
 
                 var myProgressBar = $('#div-id').progressBar({
+                    speed: 10000,
                     done: function () {
                         wasCalled = true;
                     }
@@ -52,7 +54,7 @@
             });
 
             asyncTest("start() method should decrease the width of .bar div to 0", function () {
-                var myProgressBar = $('#div-id').progressBar();
+                var myProgressBar = $('#div-id').progressBar({ speed: 10000 });
                 myProgressBar.progressBar('start');
 
                 setTimeout(function () {
@@ -61,24 +63,50 @@
                 }, 100);
             });
 
+            asyncTest("start() method should decrease the width of .bar div to 0 in the speed of property 'speed' configured", function () {
+                var myProgressBar = $('#div-id').progressBar({
+                    speed: 100
+                });
+                myProgressBar.progressBar('start');
+
+                setTimeout(function () {
+                    start();
+                    equal(0 == myProgressBar.find('.bar').width(), true);
+                }, 113);
+            });
+
+            asyncTest("start() method with twinoo javascripts running in the browser should decrease the width of .bar div to 0 in the speed of property 'speed' configured", function () {
+                var myProgressBar = $('#div-id').progressBar({
+                    speed: 100
+                });
+                myProgressBar.progressBar('start');
+
+                var randomNumber = getRandomNumber();
+
+                setTimeout(function () {
+                    start();
+                    equal(0 == myProgressBar.find('.bar').width(), true);
+                }, 113);
+            });
+
             test("reset() method should increase the width of .bar div to 100", function () {
                 var myProgressBar = $('#div-id').progressBar();
                 myProgressBar.progressBar('start');
                 myProgressBar.progressBar('reset');
 
-                equal($('.barProgress').width() == myProgressBar.find('.bar').width(), true);
+                equal($('.progress-bar').width() == myProgressBar.find('.bar').width(), true);
             });
 
             asyncTest("reset() method should stop animation", function () {
-                var myProgressBar = $('#div-id').progressBar();
+                var myProgressBar = $('#div-id').progressBar({ speed: 10000 });
                 myProgressBar.progressBar('start');
                 myProgressBar.progressBar('reset');
 
-                equal($('.barProgress').width() == myProgressBar.find('.bar').width(), true);
+                equal($('.progress-bar').width() == myProgressBar.find('.bar').width(), true);
 
                 setTimeout(function () {
                     start();
-                    equal($('.barProgress').width() == myProgressBar.find('.bar').width(), true);
+                    equal($('.progress-bar').width() == myProgressBar.find('.bar').width(), true);
                 }, 100);
             });
         });

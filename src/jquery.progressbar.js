@@ -1,7 +1,7 @@
 (function ($) {
 
     var settings = {
-        'velocity': 1,
+        'speed': 1,
         'done': null
     };
 
@@ -9,7 +9,7 @@
         $(barElement).find('.bar').stop();
 
         var barElementWidth = $(barElement).find('.bar').width();
-        $(barElement).find('.bar').animate({ width: 0 }, settings.velocity, function () {
+        $(barElement).find('.bar').animate({ width: 0 }, (10000 / settings.speed), function () {
             if (0 >= $(barElement).find('.bar').width() && $.isFunction(settings.done)) {
                 settings.done();
             }
