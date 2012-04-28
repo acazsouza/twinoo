@@ -14,7 +14,11 @@
 
     <style type="text/css">
         .progress-bar { width:100%; height:20px; border:solid 1px #000; position:relative }
-        .progress-bar .bar { width:100%; height:20px; position:absolute; right:0; background-color:red }
+        .progress-bar .bar { width:100%; height:20px; position:absolute; right:0; background-color:red;
+                        transition:width 2s;
+                        -moz-transition:width 2s; /* Firefox 4 */
+                        -webkit-transition:width 2s; /* Safari and Chrome */
+                        -o-transition:width 2s /* Opera */ }
     </style>
 
     <script type="text/javascript">
@@ -92,6 +96,9 @@
             test("reset() method should increase the width of .bar div to 100", function () {
                 var myProgressBar = $('#div-id').progressBar();
                 myProgressBar.progressBar('start');
+
+                equal(myProgressBar.find('.bar').width() < $('.progress-bar').width(), true);
+
                 myProgressBar.progressBar('reset');
 
                 equal($('.progress-bar').width() == myProgressBar.find('.bar').width(), true);
@@ -100,6 +107,9 @@
             asyncTest("reset() method should stop animation", function () {
                 var myProgressBar = $('#div-id').progressBar({ speed: 10000 });
                 myProgressBar.progressBar('start');
+
+                equal(myProgressBar.find('.bar').width() < $('.progress-bar').width(), true);
+
                 myProgressBar.progressBar('reset');
 
                 equal($('.progress-bar').width() == myProgressBar.find('.bar').width(), true);

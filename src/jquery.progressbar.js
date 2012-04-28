@@ -9,11 +9,12 @@
         $(barElement).find('.bar').stop();
 
         var barElementWidth = $(barElement).find('.bar').width();
-        $(barElement).find('.bar').animate({ width: 0 }, (10000 / settings.speed), function () {
+        /*$(barElement).find('.bar').animate({ width: 0 }, (10000 / settings.speed), function () {
             if (0 >= $(barElement).find('.bar').width() && $.isFunction(settings.done)) {
                 settings.done();
             }
-        });
+        });*/
+        $(barElement).find('.bar').width(0);
     }
 
     var methods = {
