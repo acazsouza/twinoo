@@ -5,18 +5,20 @@
         'done': null
     };
 
-    var decreaseBar = function (barElement) {
-        insertCSSTransitions(barElement);
-        $(barElement).find('.bar').width(0);
+    var decreaseBar = function (progressBar) {
+        insertCSSTransitions(progressBar);
+        $(progressBar).find('.bar').width(0);
+
+
     }
 
-    var insertCSSTransitions = function (barElement) {
+    var insertCSSTransitions = function (progressBar) {
         var timeBar = settings.timeBar;
-        $(barElement).find('.bar').attr('style', 'transition:width ' + timeBar + 's; -moz-transition:width ' + timeBar + 's; -webkit-transition:width ' + timeBar + 's; -o-transition:width ' + timeBar + 's');
+        $(progressBar).find('.bar').attr('style', 'transition:width ' + timeBar + 's; -moz-transition:width ' + timeBar + 's; -webkit-transition:width ' + timeBar + 's; -o-transition:width ' + timeBar + 's');
     }
 
-    var removeCSSTransitions = function (barElement) {
-        $(barElement).find('.bar').removeAttr('style');
+    var removeCSSTransitions = function (progressBar) {
+        $(progressBar).find('.bar').removeAttr('style');
     }
 
     var methods = {

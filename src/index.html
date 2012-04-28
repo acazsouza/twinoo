@@ -57,7 +57,7 @@
 
             fields[index].innerHTML = expression.correctAnswer;
 
-            var progressBar = $('#progress-bar').progressBar();
+            var progressBar = $('#progress-bar').progressBar({ timeBar: 10 });
             progressBar.progressBar('start');
         }
 

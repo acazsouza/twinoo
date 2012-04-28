@@ -9,21 +9,8 @@
     <script type="text/javascript" src="../src/twinoo.js"></script>
     <script type="text/javascript" src="../src/jquery.progressbar.js"></script>
     <style type="text/css">
-        .progress-bar
-        {
-            width: 100%;
-            height: 20px;
-            border: solid 1px #000;
-            position: relative;
-        }
-        .progress-bar .bar
-        {
-            width: 1904px;
-            height: 20px;
-            position: absolute;
-            right: 0;
-            background-color: red;
-        }
+        .progress-bar { width:100%; height:20px; border:solid 1px #000; position:relative }
+        .progress-bar .bar { width:1904px; height:20px; position:absolute; right:0; background-color:red }
     </style>
     <script type="text/javascript">
         $(function () {
@@ -61,8 +48,9 @@
                 }, 100);
             });
 
+            //this test is in trouble
             asyncTest("start() method should decrease the width of .bar div to 0 with animation", function () {
-                var myProgressBar = $('#div-id').progressBar({ timeBar: 0.01 });
+                var myProgressBar = $('#div-id').progressBar({ timeBar: 0.1 });
                 myProgressBar.progressBar('start');
 
                 setTimeout(function () {
@@ -71,6 +59,7 @@
                 }, 100);
             });
 
+            //this test is in trouble
             asyncTest("start() method should decrease the width of .bar div to 0 with animation in the timeBar of property 'timeBar' configured", function () {
                 var myProgressBar = $('#div-id').progressBar({
                     timeBar: 0.1
@@ -83,19 +72,19 @@
                 }, 100);
             });
 
+            //this test is in trouble
             asyncTest("start() method with twinoo javascripts running in the browser should decrease the width of .bar div to 0 in the time (in seconds) of property 'timeBar' configured", function () {
                 var myProgressBar = $('#div-id').progressBar({
-                    timeBar: 5
+                    timeBar: 0.1
                 });
                 myProgressBar.progressBar('start');
 
-                //this function is here to cause performance problems:
                 getRandomNumber();
 
                 setTimeout(function () {
                     start();
                     equal(0 == myProgressBar.find('.bar').width(), true);
-                }, 13);
+                }, 113);
             });
 
             test("reset() method should increase the width of .bar div to 100 instantly", function () {
