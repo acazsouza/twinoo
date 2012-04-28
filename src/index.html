@@ -56,9 +56,6 @@
             }
 
             fields[index].innerHTML = expression.correctAnswer;
-
-            var progressBar = $('#progress-bar').progressBar({ timeBar: 10 });
-            progressBar.progressBar('start');
         }
 
         window.onload = applyNewExpression;
@@ -70,7 +67,12 @@
                 numberOfErros++;
 
             if (numberOfErros >= 3)
-                alert('acabou o jogo.')
+                alert('acabou o jogo.');
+
+            if (0 == numberOfErros) {
+                var progressBar = $('#progress-bar').progressBar({ timeBar: 10, done: function () { alert('teste') } });
+                progressBar.progressBar('start');
+            }
 
             applyNewExpression();
         });

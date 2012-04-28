@@ -9,7 +9,9 @@
         insertCSSTransitions(progressBar);
         $(progressBar).find('.bar').width(0);
 
-
+        if ($.isFunction(settings.done)) {
+            $(progressBar).find('.bar').bind('transitionEnd', settings.done);
+        }
     }
 
     var insertCSSTransitions = function (progressBar) {
@@ -26,7 +28,9 @@
             settings = $.extend(settings, options);
 
             return this.each(function () {
-
+                $(this).find('.bar').live('webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd', function () {
+                    $(this).trigger('transitionEnd');
+                });
             });
         },
         start: function () {
