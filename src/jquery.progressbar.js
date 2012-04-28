@@ -1,20 +1,22 @@
 (function ($) {
 
     var settings = {
-        'speed': 1,
+        'timeBar': 5,
         'done': null
     };
 
     var decreaseBar = function (barElement) {
-        $(barElement).find('.bar').stop();
-
-        var barElementWidth = $(barElement).find('.bar').width();
-        /*$(barElement).find('.bar').animate({ width: 0 }, (10000 / settings.speed), function () {
-            if (0 >= $(barElement).find('.bar').width() && $.isFunction(settings.done)) {
-                settings.done();
-            }
-        });*/
+        insertCSSTransitions(barElement);
         $(barElement).find('.bar').width(0);
+    }
+
+    var insertCSSTransitions = function (barElement) {
+        var timeBar = settings.timeBar;
+        $(barElement).find('.bar').attr('style', 'transition:width ' + timeBar + 's; -moz-transition:width ' + timeBar + 's; -webkit-transition:width ' + timeBar + 's; -o-transition:width ' + timeBar + 's');
+    }
+
+    var removeCSSTransitions = function (barElement) {
+        $(barElement).find('.bar').removeAttr('style');
     }
 
     var methods = {
@@ -32,8 +34,7 @@
         },
         reset: function () {
             return this.each(function () {
-                $(this).find('.bar').stop();
-                $(this).find('.bar').width($(this).parent().width());
+                removeCSSTransitions(this);
             });
         }
     };
