@@ -9,8 +9,21 @@
     <script type="text/javascript" src="../src/twinoo.js"></script>
     <script type="text/javascript" src="../src/jquery.progressbar.js"></script>
     <style type="text/css">
-        .progress-bar { width:100%; height:20px; border:solid 1px #000; position:relative }
-        .progress-bar .bar { width:1904px; height:20px; position:absolute; right:0; background-color:red }
+        .progress-bar
+        {
+            width: 100%;
+            height: 20px;
+            border: solid 1px #000;
+            position: relative;
+        }
+        .progress-bar .bar
+        {
+            width: 1904px;
+            height: 20px;
+            position: absolute;
+            right: 0;
+            background-color: red;
+        }
     </style>
     <script type="text/javascript">
         $(function () {
@@ -26,48 +39,48 @@
             });
 
             test("$('#div-id').progressBar() should return a jQuery Object", function () {
-            var myProgressBar = $('#div-id').progressBar();
-            equal(null != myProgressBar.jquery, true);
+                var myProgressBar = $('#div-id').progressBar();
+                equal(null != myProgressBar.jquery, true);
             });
 
             asyncTest("done() event should trigger when barProgress finish", function () {
-            var wasCalled = false;
+                var wasCalled = false;
 
-            var myProgressBar = $('#div-id').progressBar({
-            timeBar: 0.01,
-            done: function () {
-            wasCalled = true;
-            }
-            });
+                var myProgressBar = $('#div-id').progressBar({
+                    timeBar: 0.01,
+                    done: function () {
+                        wasCalled = true;
+                    }
+                });
 
-            myProgressBar.progressBar('start');
+                myProgressBar.progressBar('start');
 
-            setTimeout(function () {
-            start();
-            equal(wasCalled, true);
-            }, 100);
+                setTimeout(function () {
+                    start();
+                    equal(wasCalled, true);
+                }, 100);
             });
 
             asyncTest("start() method should decrease the width of .bar div to 0 with animation", function () {
-            var myProgressBar = $('#div-id').progressBar({ timeBar: 0.01 });
-            myProgressBar.progressBar('start');
+                var myProgressBar = $('#div-id').progressBar({ timeBar: 0.01 });
+                myProgressBar.progressBar('start');
 
-            setTimeout(function () {
-            start();
-            equal(0 == myProgressBar.find('.bar').width(), true);
-            }, 100);
+                setTimeout(function () {
+                    start();
+                    equal(0 == myProgressBar.find('.bar').width(), true);
+                }, 100);
             });
 
             asyncTest("start() method should decrease the width of .bar div to 0 with animation in the timeBar of property 'timeBar' configured", function () {
-            var myProgressBar = $('#div-id').progressBar({
-            timeBar: 0.1
-            });
-            myProgressBar.progressBar('start');
+                var myProgressBar = $('#div-id').progressBar({
+                    timeBar: 0.1
+                });
+                myProgressBar.progressBar('start');
 
-            setTimeout(function () {
-            start();
-            equal(0 == myProgressBar.find('.bar').width(), true);
-            }, 100);
+                setTimeout(function () {
+                    start();
+                    equal(0 == myProgressBar.find('.bar').width(), true);
+                }, 100);
             });
 
             asyncTest("start() method with twinoo javascripts running in the browser should decrease the width of .bar div to 0 in the time (in seconds) of property 'timeBar' configured", function () {
