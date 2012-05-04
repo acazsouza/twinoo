@@ -5,42 +5,54 @@
         'done': null
     };
 
-    var decreaseBar = function (progressBar) {
-        insertCSSTransitions(progressBar);
-        $(progressBar).find('.bar').width(0);
+    var $progressBar, $bar;
 
-        if ($.isFunction(settings.done)) {
-            $(progressBar).find('.bar').bind('transitionEnd', settings.done);
-        }
+    var decreaseBar = function () {
+        insertCSSTransitions();
+        $bar.width(0);
     }
 
-    var insertCSSTransitions = function (progressBar) {
-        var timeBar = settings.timeBar;
-        $(progressBar).find('.bar').attr('style', 'transition:width ' + timeBar + 's; -moz-transition:width ' + timeBar + 's; -webkit-transition:width ' + timeBar + 's; -o-transition:width ' + timeBar + 's');
+    var insertCSSTransitions = function () {
+        $bar.attr('style', 'transition:width ' + settings.timeBar + 's; -moz-transition:width ' + settings.timeBar + 's; -webkit-transition:width ' + settings.timeBar + 's; -o-transition:width ' + settings.timeBar + 's');
     }
 
-    var removeCSSTransitions = function (progressBar) {
-        $(progressBar).find('.bar').removeAttr('style');
+    var removeCSSTransitions = function () {
+        $bar.removeAttr('style');
     }
 
     var methods = {
         init: function (options) {
             settings = $.extend(settings, options);
 
-            return this.each(function () {
-                $(this).find('.bar').live('webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd', function () {
-                    $(this).trigger('transitionEnd');
+            $progressBar = $(this);
+            $bar = $progressBar.find('.bar');
+
+            if ($.isFunction(settings.done))
+                $bar.bind('transitionEnd', function () {
+                    var now = new Date();
+                    console.log(now);
+
+                    settings.done;
                 });
+
+            $bar.bind('webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd', function () {
+                $bar.trigger('transitionEnd');
+
             });
+
+            return $progressBar;
         },
         start: function () {
             return this.each(function () {
-                decreaseBar(this);
+                decreaseBar();
+
+                var now = new Date();
+                console.log(now);
             });
         },
         reset: function () {
             return this.each(function () {
-                removeCSSTransitions(this);
+                removeCSSTransitions();
             });
         }
     };
