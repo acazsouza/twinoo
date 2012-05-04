@@ -28,16 +28,10 @@
             $bar = $progressBar.find('.bar');
 
             if ($.isFunction(settings.done))
-                $bar.bind('transitionEnd', function () {
-                    var now = new Date();
-                    console.log(now);
-
-                    settings.done;
-                });
+                $bar.bind('transitionEnd', settings.done);
 
             $bar.bind('webkitTransitionEnd transitionend msTransitionEnd oTransitionEnd', function () {
                 $bar.trigger('transitionEnd');
-
             });
 
             return $progressBar;
@@ -45,9 +39,6 @@
         start: function () {
             return this.each(function () {
                 decreaseBar();
-
-                var now = new Date();
-                console.log(now);
             });
         },
         reset: function () {
