@@ -13,7 +13,7 @@
     }
 
     var insertCSSTransitions = function () {
-        $bar.attr('style', 'transition:width ' + settings.timeBar + 's; -moz-transition:width ' + settings.timeBar + 's; -webkit-transition:width ' + settings.timeBar + 's; -o-transition:width ' + settings.timeBar + 's');
+        $bar.attr('style', 'transition:width ' + settings.timeBar + 's linear; -moz-transition:width ' + settings.timeBar + 's linear; -webkit-transition:width ' + settings.timeBar + 's linear; -o-transition:width ' + settings.timeBar + 's linear');
     }
 
     var removeCSSTransitions = function () {
@@ -44,6 +44,7 @@
         reset: function () {
             return this.each(function () {
                 removeCSSTransitions();
+
             });
         }
     };
