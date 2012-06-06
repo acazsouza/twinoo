@@ -114,6 +114,16 @@
                     equal(myProgressBar.width() == myProgressBar.find('.bar').width(), true);
                 }, 100);
             });
+
+            test("reset(percentage) method should decreased settings.timeBar in seconds by the informed percentage", function () {
+                var myProgressBar = $('#div-id').progressBar({ timeBar: 10 });
+                myProgressBar.progressBar('start');
+
+                myProgressBar.progressBar('reset', 20);
+                equal(8 == myProgressBar.progressBar('getSettings').timeBar, true);
+                myProgressBar.progressBar('reset', 20);
+                equal(6.4 == myProgressBar.progressBar('getSettings').timeBar, true);
+            });
         });
     </script>
 </head>

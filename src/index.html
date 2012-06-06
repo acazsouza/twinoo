@@ -59,20 +59,44 @@
 
         window.onload = applyNewExpression;
 
+        var progressBar;
+        var start = true;
         $('.numbers').click(function () {
             var clickedNumber = $(this).html();
 
-            if (clickedNumber != expression.correctAnswer)
-                numberOfErros++;
+            if (start) {
+                progressBar = $('#progress-bar').progressBar({
+                    timeBar: 10,
+                    done: function () {
+                        numberOfErros++; applyNewExpression();
+                        progressBar.progressBar('reset', 20);
 
-            if (numberOfErros >= 3);
-
-            if (0 == numberOfErros) {
-                var progressBar = $('#progress-bar').progressBar({ timeBar: 10, done: function () { alert('teste') } });
+                        //setTimeout to force redraw
+                        setTimeout(function () {
+                            progressBar.progressBar('start');
+                        }, 1)
+                    }
+                });
                 progressBar.progressBar('start');
+                start = false;
             }
 
-            applyNewExpression();
+            if (clickedNumber != expression.correctAnswer) {
+                numberOfErros++;
+            }
+
+            if (numberOfErros >= 3) {
+                alert('Game Over')
+            }
+            else {
+                applyNewExpression();
+                progressBar.progressBar('reset', 20);
+
+                //setTimeout to force redraw
+                setTimeout(function () {
+                    progressBar.progressBar('start');
+                }, 1)
+            }
         });
     </script>
 </body>

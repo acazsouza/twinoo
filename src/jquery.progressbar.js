@@ -41,11 +41,15 @@
                 decreaseBar();
             });
         },
-        reset: function () {
-            return this.each(function () {
-                removeCSSTransitions();
+        reset: function (percentage) {
+            if (arguments.length > 0 && typeof arguments[0] == 'number') {
+                settings.timeBar = (settings.timeBar - ((settings.timeBar / 100) * percentage));
+            }
 
-            });
+            removeCSSTransitions();
+        },
+        getSettings: function () {
+            return settings;
         }
     };
 
